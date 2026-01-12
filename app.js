@@ -7,19 +7,23 @@ console.log("Hello World!\n==========\n");
 console.log("EXERCISE 1:\n==========\n");
 
 printOdds(10);
-console.log("");
+console.log(" ");
+printOdds(-10);
+console.log(" ");
 function printOdds(count){
-    for(let i=0; i<count; i++){
-        if (i < 0){
-            console.log(`${i} is NOT a valid number`);
-        }else if (i % 2 === 1){
-            console.log(i);
+    for(let i=0; i<Math.abs(count); i++){
+        let multaplyer = 1
+        if (count < 0){
+            multaplyer = -1
+        }
+        if (i % 2 === 1){
+            let print = i * multaplyer;
+            console.log(print);
         }
     }
 }
-
 console.log("==============");
-console.log("");
+console.log(" ");
 // Exercise 2 Section
 console.log("EXERCISE 2:\n============\n");
 
@@ -50,22 +54,27 @@ whichQuadrant(1, 2);
 console.log(" ");
 whichQuadrant(0, 2);
 console.log(" ");
+whichQuadrant(0, 0);
+console.log(" ");
 function whichQuadrant(x,y){
     if (x > 0 && y > 0){
         console.log(`The x value ${x} and the y value ${y} is in the 1st Quadrant`);
-    }
+    }else
     if (x < 0 && y > 0){
         console.log(`The x value ${x} and the y value ${y} is in the 2nd Quadrant`);
-    }
+    }else
     if (x < 0 && y < 0){
         console.log(`The x value ${x} and the y value ${y} is in the 3rd Quadrant`);
-    }
+    }else
     if (x > 0 && y < 0){
         console.log(`The x value ${x} and the y value ${y} is in the 4th Quadrant`);
-    }
+    }else 
+    if (x === 0 && y === 0){
+        console.log(`These X and Y values indicate the origin point`);
+    }else
     if (x === 0){
         console.log(`The x value ${x} and the y value ${y} is on the Y axis`);
-    }
+    }else
     if (y === 0){
         console.log(`The x value ${x} and the y value ${y} is on the X axis`);
     }
@@ -112,22 +121,29 @@ function whatTypeOfTriangle(sideOne , sideTwo , sideThree){
     }
 }
 dataPlanStatus(100,15,56)
+console.log(" ");
+dataPlanStatus(100,17,56)
 function dataPlanStatus(planLimit,day,usage){
     let GB = Math.round((usage / day)*100 )/100;
     let daysRemaining = 30 - day;
-    let ADU = Math.round((planLimit / 30)*100 )/100;
+    let ADU = Math.round((planLimit / 30)*100 )/100; // Average daily use
     let dataExeed = Math.round(((GB * 30) - planLimit)*100 )/100;
-    let dataFix = Math.round((GB - (dataExeed / daysRemaining))*100 )/100;
+    
+    let ARDU = Math.round(((planLimit - usage) / (30 - day))*100 )/100; //allowed remaining daily usage
     
     if (dataExeed <= 0){
-        console.log(`Keep it up! you will not exceed your plan`);
+        console.log(`You have only used an average of ${ADU} GB a day.`);
+        console.log(`You can use an average of ${ARDU} a day for the remaining ${daysRemaining} days without exceeding your plan`);
+        console.log(" ");
+        console.log(`Keep it up!`);
+        
     }else{
         console.log(`${day} days used, ${daysRemaining} days remaining`);
         console.log(`Average daily use: ${ADU} GB/day`);
         console.log(`You are EXCEEDING your average daily use (${GB} GB/day),`);
         console.log(`continuing this high usage, you'll exceed your data plan by`);
         console.log(`${dataExeed} GB.`);
-        console.log(`To stay below your data plan, use no more than ${dataFix} GB/day.`)
+        console.log(`To stay below your data plan, use no more than ${ARDU} GB/day.`)
     }
     
    
